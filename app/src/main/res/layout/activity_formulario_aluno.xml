@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ScrollView: para funcionar precisa ter apenas uma view filha
+    (LinearLayout); precisa ter o height = wrap_content; e
+    precisa passar o namespace (xmlns:android="http://schemas.android.com/apk/res/android")
+    do LinearLayout para o ScrollView que é agora a viu pai -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/activity_formulario_aluno_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="Nome"
+            android:inputType="textCapWords"/>
+
+        <EditText
+            android:id="@+id/activicty_formulario_aluno_telefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="Telefone"
+            android:inputType="phone"/>
+
+        <EditText
+            android:id="@+id/activity_formulario_aluno_email"
+            android:layout_width="match_parent"
+            android:layout_margin="8dp"
+            android:layout_height="wrap_content"
+            android:hint="E-Mail"
+            android:inputType="textEmailAddress"/>
+
+    </LinearLayout>
+
+</ScrollView>
