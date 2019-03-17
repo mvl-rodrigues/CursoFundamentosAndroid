@@ -46,10 +46,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configuraFabNovoAluno();
 
         configuraLista();
-
-        dao.salvar(new Aluno("victor","11232323233","victor"));
-        dao.salvar(new Aluno("fran","11232323233","victor"));
-        dao.salvar(new Aluno("joao","11232323233","victor"));
 //      Toda activity herda de um context. this: indica de onde ta vindo a ação.
 //      Toast.makeText(this, "Victor Rodrigues", Toast.LENGTH_SHORT).show();
 
@@ -118,8 +114,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
     private void atualizaAlunos() {
-        adapter.clear();
-        adapter.addAll(dao.todos());
+        adapter.atualiza(dao.todos());
     }
 
     private void configuraLista() {

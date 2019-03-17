@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +24,7 @@ import br.com.alura.agenda.model.Aluno;
 public class ListaAlunosAdapter extends BaseAdapter {
     // List<Aluno> alunos: é o dataset do meu adapter. permite realizar as operações base, como: getCount()
     private final List<Aluno> alunos = new ArrayList<>();
-    private Context context;
+    private final Context context;
 
     // para cada instancia precisamos que seja passado o contexto de criação
     public ListaAlunosAdapter(Context context) {
@@ -62,33 +60,54 @@ public class ListaAlunosAdapter extends BaseAdapter {
          *  por padrão o inflate é responsabilidade da view pai (root) e para funcionar em um adapter
          *  precisamos passar o parametro false para delegar essa função ao nosso adapter.
          **/
-        View viewCriada = LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_aluno, viewGroup,false);
+        View viewCriada = criaView(viewGroup);
 
         // para cada aluno da lista estou retornando um aluno para pegar as informações
         Aluno alunoDevolvido = alunos.get(position);
 
-        // linkar apartir da viewCriada os componentes dessa view (view filhas)
-        TextView nome = viewCriada.findViewById(R.id.item_aluno_nome);
-        // a partir do componente linkado, settar as informações do alunoDevolvido
-        nome.setText(alunoDevolvido.getNome());
-        TextView telefone = viewCriada.findViewById(R.id.item_aluno_telefone);
-        telefone.setText(alunoDevolvido.getTelefone());
+        vincula(viewCriada, alunoDevolvido);
 
         // retorna a view personalizada do nosso adapter
         return viewCriada;
     }
 
-    public void clear() {
-        alunos.clear();
+    private void vincula(View view, Aluno aluno) {
+        // linkar apartir da viewCriada os componentes dessa view (view filhas)
+        TextView nome = view.findViewById(R.id.item_aluno_nome);
+        // a partir do componente linkado, settar as informações do alunoDevolvido
+        nome.setText(aluno.getNome());
+        TextView telefone = view.findViewById(R.id.item_aluno_telefone);
+        telefone.setText(aluno.getTelefone());
     }
 
-    public void addAll(List<Aluno> alunos) {
+    private View criaView(ViewGroup viewGroup) {
+        return LayoutInflater
+                .from(context)
+                .inflate(R.layout.item_aluno, viewGroup,false);
+    }
+
+//    private void clear() {
+//        alunos.clear();
+//    }
+//
+//    private void addAll(List<Aluno> alunos) {
+//        this.alunos.addAll(alunos);
+//    }
+
+    public void atualiza (List<Aluno> alunos){
+        this.alunos.clear();
         this.alunos.addAll(alunos);
+        /**
+         * notifyDataSetChanged(): notifica o adapter que houve uma alteração no nosso dataset (lista).
+         * recomendado usar esse método sempre que for realizado alguma alteração no dataset, como:
+         * add, remove, delete e etc.
+         **/
+        notifyDataSetChanged();
     }
 
     public void remove(Aluno aluno) {
         alunos.remove(aluno);
+        // notifyDataSetChanged(): notifica o adapter que houve uma alteração no nosso dataset (lista)
+        notifyDataSetChanged();
     }
 }
