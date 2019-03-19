@@ -1,7 +1,5 @@
 package br.com.alura.agenda.dao;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,14 +31,13 @@ public class AlunoDao {
 
 //      settar as auterações na lista
         if (alunoEncontrado != null){
-            int posiçãoDoAluno = alunos.indexOf(alunoEncontrado);
-            alunos.set(posiçãoDoAluno, aluno);
+            int posicaoDoAluno = alunos.indexOf(alunoEncontrado);
+            alunos.set(posicaoDoAluno, aluno);
         }
 
     }
 
     private Aluno buscaAlunoPeloId(Aluno aluno) {
-        Aluno alunoEncontrado = null;
 //      procura o aluno na lista
         for (Aluno a : alunos){
             if (a.getId() == aluno.getId()) {

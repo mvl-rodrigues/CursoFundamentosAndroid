@@ -1,9 +1,8 @@
 package br.com.alura.agenda.model;
-/**
- * NonNull: não permite que seja retornado um valor nulo.
- */
 
-import android.support.annotation.NonNull;
+/* NonNull: não permite que seja retornado um valor nulo.*/
+
+import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 

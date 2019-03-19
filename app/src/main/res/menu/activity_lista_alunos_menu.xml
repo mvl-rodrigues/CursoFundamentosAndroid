@@ -3,10 +3,6 @@
 
     <item
         android:id="@+id/activity_lista_alunos_menu_remover"
-        android:title="Remover" />
-
-    <item
-        android:id="@+id/activity_lista_alunos_menu_teste"
-        android:title="teste" />
+        android:title="@string/remover" />
 
 </menu>

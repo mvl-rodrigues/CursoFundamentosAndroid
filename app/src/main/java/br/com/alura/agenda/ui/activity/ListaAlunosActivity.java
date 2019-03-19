@@ -2,9 +2,9 @@ package br.com.alura.agenda.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,9 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import br.com.alura.agenda.R;
-import br.com.alura.agenda.dao.AlunoDao;
 import br.com.alura.agenda.model.Aluno;
-import br.com.alura.agenda.ui.adapter.ListaAlunosAdapter;
+import br.com.alura.agenda.ui.ListaAlunosView;
 
 import static br.com.alura.agenda.ui.activity.ConstantesActivities.CHAVE_ALUNO;
 
@@ -25,9 +24,8 @@ import static br.com.alura.agenda.ui.activity.ConstantesActivities.CHAVE_ALUNO;
  */
 public class ListaAlunosActivity extends AppCompatActivity {
 
-    public static final String TITULO_APPBAR = "Lista de aluno";
-    private final AlunoDao dao = new AlunoDao();
-    private ListaAlunosAdapter adapter;
+    private static final String TITULO_APPBAR = "Lista de aluno";
+    private final ListaAlunosView listaAlunosView = new ListaAlunosView(this);
 
     /**
      * onCreate: para poder iniciar o app é preciso sobrescrever esse método.
@@ -46,9 +44,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configuraFabNovoAluno();
 
         configuraLista();
+
 //      Toda activity herda de um context. this: indica de onde ta vindo a ação.
 //      Toast.makeText(this, "Victor Rodrigues", Toast.LENGTH_SHORT).show();
-
     }
 
     /**
@@ -77,15 +75,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.activity_lista_alunos_menu_remover){
-            //getMenuInfo: nos da acesso a mais informação sobre o menu clicado, exemplo a posição do aluno na lista
-            //AdapterContextMenuInfo: é a implementação especifica para adapters receberem as info do getMenuInfo
-            AdapterView.AdapterContextMenuInfo menuInfo =
-                    (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
-            //adapter.getItem: retorna um aluno pela posição
-            Aluno alunoEscolhido = adapter.getItem(menuInfo.position);
-            //remove o aluno escolhido da lista
-            remove(alunoEscolhido);
+            listaAlunosView.confirmaRemocao(item);
         }
 
         return super.onContextItemSelected(item);
@@ -109,19 +99,15 @@ public class ListaAlunosActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        atualizaAlunos();
+        listaAlunosView.atualizaAlunos();
 
-    }
-
-    private void atualizaAlunos() {
-        adapter.atualiza(dao.todos());
     }
 
     private void configuraLista() {
         ListView listaAlunos = findViewById(R.id.activity_lista_alunos_listview);
 
 //      ArrayAdapter: implementa um adapter simples para a visualização da lista (simple_list_item_1: arquivo padrão do android).
-        configuraAdapter(listaAlunos);
+        listaAlunosView.configuraAdapter(listaAlunos);
 
         configuraListenerDeCliquePorItem(listaAlunos);
 
@@ -129,12 +115,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
         //insere uma view dentro da outra. neste caso um menu dentro do listview
         registerForContextMenu(listaAlunos);
-    }
-
-    private void remove(Aluno alunoEscolhido) {
-        dao.remover(alunoEscolhido);
-        // utilizando o metodo remove do adapter para atualizar a lista apos remover no DAO
-        adapter.remove(alunoEscolhido);
     }
 
     private void configuraListenerDeCliquePorItem(ListView listaAlunos) {
@@ -146,7 +126,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 //              redirecionando para o formulário
                 abreFormularioModoEditaAluno(alunoEscolhido);
 
-                /**
+                /*
                  * imprime mensagem de info(i) no logcat
                  * Log.i("Possição clicada: ", "" + position + " id: " + id);
                  * temos tambem: Log.e (error), Log.w (warn) e etc.
@@ -163,18 +143,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
         startActivity(vaiParaFormularioActivity);
     }
 
-    private void configuraAdapter(ListView listaAlunos) {
-        /**
-         * trasforma o parametro do setAdapter em uma variável para poder utilizar melhor
-         * as funcionalidades do adapter, como: adapter.remove() para atualizar a lista.
-         */
-        // uso do layout padrão do android: android.R.layout.simple_list_item_1
-        // uso do layout personalizado: R.layout.item_aluno
-        adapter = new ListaAlunosAdapter(this);
-
-        listaAlunos.setAdapter(adapter);
-
-    }
 }
 
 //    private void configuraListenerDeCliqueLongoPorItem(ListView listaAlunos) {

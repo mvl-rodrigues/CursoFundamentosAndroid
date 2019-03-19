@@ -46,13 +46,12 @@ public class ListaAlunosAdapter extends BaseAdapter {
         return alunos.get(position).getId();
     }
 
-    /**
+    /*
      * getView: é a view apresentada
      */
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        /**
-         * from: de onde a view será inflada (CONTEXTO).
+        /* from: de onde a view será inflada (CONTEXTO).
          * inflate:
          * - R.layout.item_aluno: o arquivo que será inflado; e
          * - viewGroup: é a view group (lista) onde o item_aluno vai entrar
@@ -97,8 +96,7 @@ public class ListaAlunosAdapter extends BaseAdapter {
     public void atualiza (List<Aluno> alunos){
         this.alunos.clear();
         this.alunos.addAll(alunos);
-        /**
-         * notifyDataSetChanged(): notifica o adapter que houve uma alteração no nosso dataset (lista).
+        /* notifyDataSetChanged(): notifica o adapter que houve uma alteração no nosso dataset (lista).
          * recomendado usar esse método sempre que for realizado alguma alteração no dataset, como:
          * add, remove, delete e etc.
          **/
