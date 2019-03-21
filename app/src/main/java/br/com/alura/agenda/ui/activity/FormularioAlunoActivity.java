@@ -28,42 +28,32 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_aluno);
-
         inicializacaoDosCampos();
-
-        //configuraBotaoSalvar();
-
         carregaAluno();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //inflando o menu com o botão salvar
         getMenuInflater().inflate(R.menu.activity_formulario_aluno_menu, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-
         if (itemId == R.id.activity_formulario_aluno_menu_salvar){
             finalizaFormulario();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     private void carregaAluno() {
         Intent dados = getIntent();
-
         if (dados.hasExtra(CHAVE_ALUNO)){
             setTitle(TITULO_APPBAR_EDITA_ALUNO);
             aluno = (Aluno) dados.getSerializableExtra("aluno");
             preencheCampos();
         } else {
-//      Boa prática é deixar como uma constanta
             setTitle(TITULO_APPBAR_NOVO_ALUNO);
             aluno = new Aluno();
         }
@@ -77,13 +67,11 @@ public class FormularioAlunoActivity extends AppCompatActivity {
 
     private void finalizaFormulario() {
         preencheAluno();
-
         if (aluno.temIdValido()){
             dao.edita(aluno);
         } else {
             dao.salvar(aluno);
         }
-//              "matar" a activity atual e retornar para a activity anterior a essa
         finish();
     }
 
@@ -91,29 +79,14 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         campoNome = findViewById(R.id.activity_formulario_aluno_nome);
         campoTelefone = findViewById(R.id.activicty_formulario_aluno_telefone);
         campoEmail = findViewById(R.id.activity_formulario_aluno_email);
-
     }
 
     private void preencheAluno() {
         String nome = campoNome.getText().toString();
         String telefone = campoTelefone.getText().toString();
         String email = campoEmail.getText().toString();
-
         aluno.setNome(nome);
         aluno.setEmail(email);
         aluno.setTelefone(telefone);
     }
 }
-
-
-//    private void configuraBotaoSalvar() {
-//
-//        Button butaoSalvar = findViewById(R.id.activity_formulario_aluno_butao_salvar);
-//
-//        butaoSalvar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finalizaFormulario();
-//            }
-//        });
-//    }

@@ -1,15 +1,9 @@
 package br.com.alura.agenda.model;
 
-/* NonNull: não permite que seja retornado um valor nulo.*/
-
 import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
-/**
- * Serializable: permite que está classe sejá transformada em bytes para que os dados dela
- * possam ser prasportada entre as classes, bancos, web e etc..
- */
 public class Aluno implements Serializable {
 
     private int id = 0;
@@ -18,7 +12,6 @@ public class Aluno implements Serializable {
     private String email;
 
     public Aluno(String nome, String telefone, String email) {
-
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;

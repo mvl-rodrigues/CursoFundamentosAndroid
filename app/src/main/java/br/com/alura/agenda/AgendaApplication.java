@@ -11,9 +11,7 @@ public class AgendaApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         criaAlunosDeTeste();
-
     }
 
     private void criaAlunosDeTeste() {
