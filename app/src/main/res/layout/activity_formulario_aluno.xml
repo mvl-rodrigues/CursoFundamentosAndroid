@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ScrollView: para funcionar precisa ter apenas uma view filha
-    (LinearLayout); precisa ter o height = wrap_content; e
-    precisa passar o namespace (xmlns:android="http://schemas.android.com/apk/res/android")
-    do LinearLayout para o ScrollView que é agora a viu pai -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
